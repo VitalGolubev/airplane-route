@@ -5,6 +5,7 @@ import com.vvh.airplaneroute.entitiy.Flight;
 import com.vvh.airplaneroute.entitiy.WayPoint;
 import com.vvh.airplaneroute.repository.AirplaneRepository;
 import com.vvh.airplaneroute.service.AirplaneService;
+import com.vvh.airplaneroute.service.FlightService;
 import com.vvh.airplaneroute.service.PlaneCalculation;
 import com.vvh.airplaneroute.service.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class AirplaneServiceImpl implements AirplaneService {
 
     @Autowired
     AirplaneRepository airplaneRepository;
+
+    @Autowired
+    FlightService flightService;
 
     @Autowired
     SequenceGeneratorService sequenceGeneratorService;
@@ -37,11 +41,12 @@ public class AirplaneServiceImpl implements AirplaneService {
 
         airplane.getFlights().add(flight);
         airplane.setPosition(flight.getPassedPoints().get(flight.getPassedPoints().size() - 1));
-        airplaneRepository.save(airplane);
+        save(airplane);
     }
 
     @Override
     public void save(Airplane airplane) {
+        flightService.saveAll(airplane.getFlights());
         if (airplane.getId() == null) {
             airplane.setId(sequenceGeneratorService.getSequenceNumber(Airplane.SEQUENCE_NAME));
         }
