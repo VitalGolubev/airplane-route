@@ -3,7 +3,6 @@ package com.vvh.airplaneroute;
 import com.vvh.airplaneroute.entitiy.Airplane;
 import com.vvh.airplaneroute.entitiy.Point;
 import com.vvh.airplaneroute.entitiy.WayPoint;
-import com.vvh.airplaneroute.repository.AirplaneRepository;
 import com.vvh.airplaneroute.service.AirplaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -20,8 +19,6 @@ public class AirplaneRouteApplication implements CommandLineRunner {
 
     @Autowired
     private AirplaneService airplaneService;
-    @Autowired
-    private AirplaneRepository airplaneRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(AirplaneRouteApplication.class, args);
